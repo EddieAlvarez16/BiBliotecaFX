@@ -10,6 +10,7 @@ import bibliotecafx.controllers.BookController;
 import bibliotecafx.controllers.CopyController;
 import bibliotecafx.controllers.LayoutController;
 import bibliotecafx.controllers.LoanController;
+import bibliotecafx.controllers.UserController;
 import bibliotecafx.helpers.Dialogs;
 import bibliotecafx.models.Author;
 import bibliotecafx.models.Book;
@@ -73,7 +74,8 @@ public class Mainapp extends Application {
       this.booksList = Book.getBookList();
       this.copiesList = Copy.getCopiesList();
       this.LoansList = Loan.getLoansList();
-      showViewLoans();
+      this.usersList = User.getUsersList();
+      showViewUsers();
     }
     
     private void showViewAuthors(){
@@ -129,6 +131,21 @@ public class Mainapp extends Application {
             LoanController controller = loader.getController();
             controller.setMainApp(this);
             Layout.setCenter(LoansPane);
+        }catch(Exception e){
+           Alert error = Dialogs.getErrorDialog(Alert.AlertType.ERROR, "BibliotecaFx", null, "Error loading the FXML file", e);
+          error.showAndWait();
+          e.printStackTrace();
+        }
+    }
+    
+    private void showViewUsers(){
+        try{
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Mainapp.class.getResource("views/User.fxml"));
+            AnchorPane UsersPane = (AnchorPane) loader.load();
+            UserController controller = loader.getController();
+            controller.setMainApp(this);
+            Layout.setCenter(UsersPane);
         }catch(Exception e){
            Alert error = Dialogs.getErrorDialog(Alert.AlertType.ERROR, "BibliotecaFx", null, "Error loading the FXML file", e);
           error.showAndWait();

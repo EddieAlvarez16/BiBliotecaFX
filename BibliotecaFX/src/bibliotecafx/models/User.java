@@ -5,6 +5,14 @@
  */
 package bibliotecafx.models;
 
+import bibliotecafx.helpers.DBHelper;
+import bibliotecafx.helpers.Dialogs;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+
 /**
  *
  * @author Eddi
@@ -57,5 +65,27 @@ public class User {
         this.Address = Address;
     }
     
+    public static ObservableList<User> getUsersList(){
+        ObservableList<User> users = FXCollections.observableArrayList();
+        
+        try{
+            Connection con = DBHelper.getConnection();
+            String sql = "SELECT * FROM Users";
+            ResultSet rs = con.createStatement().executeQuery(sql);
+            while(rs.next()){
+                User user = new User();
+                user.setId(rs.getInt("id"));
+                user.setName(rs.getString("name"));
+                user.setPhone(rs.getString("phone"));
+                user.setAddress(rs.getString("userAddress"));
+                
+                users.add(user);
+            }
+        }catch(Exception e){
+            Alert error = Dialogs.getErrorDialog(Alert.AlertType.ERROR, "BibliotecaFX", null, "Failed to load the list of Users", e);
+            error.showAndWait();
+        }
+        return users;
+    }
     
 }

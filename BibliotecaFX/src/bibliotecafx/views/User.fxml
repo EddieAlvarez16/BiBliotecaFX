@@ -15,8 +15,8 @@
                <children>
                   <TableView fx:id="tbvUsers" layoutX="27.0" layoutY="28.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
-                      <TableColumn prefWidth="75.0" text="ID" />
-                      <TableColumn prefWidth="75.0" text="Name" />
+                      <TableColumn fx:id="tbcId" prefWidth="75.0" text="ID" />
+                      <TableColumn fx:id="tbcName" prefWidth="75.0" text="Name" />
                     </columns>
                   </TableView>
                </children>
@@ -49,12 +49,12 @@
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <Label GridPane.columnIndex="1">
+                        <Label fx:id="lblPhone" GridPane.columnIndex="1">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <Label GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <Label fx:id="lblAddress" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <font>
                               <Font size="16.0" />
                            </font>
