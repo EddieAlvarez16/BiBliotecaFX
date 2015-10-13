@@ -10,6 +10,7 @@ import bibliotecafx.controllers.BookController;
 import bibliotecafx.controllers.CopyController;
 import bibliotecafx.controllers.LayoutController;
 import bibliotecafx.controllers.LoanController;
+import bibliotecafx.controllers.MenuController;
 import bibliotecafx.controllers.UserController;
 import bibliotecafx.helpers.Dialogs;
 import bibliotecafx.models.Author;
@@ -75,10 +76,10 @@ public class Mainapp extends Application {
       this.copiesList = Copy.getCopiesList();
       this.LoansList = Loan.getLoansList();
       this.usersList = User.getUsersList();
-      showViewUsers();
+      showViewMenu();
     }
     
-    private void showViewAuthors(){
+    public void showViewAuthors(){
         try{
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Mainapp.class.getResource("views/Autor.fxml"));
@@ -93,7 +94,7 @@ public class Mainapp extends Application {
         }
     }
     
-    private void showViewBooks(){
+    public void showViewBooks(){
         try{
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Mainapp.class.getResource("views/Book.fxml"));
@@ -108,7 +109,7 @@ public class Mainapp extends Application {
         }
     }
     
-    private void showViewCopies(){
+    public void showViewCopies(){
         try{
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Mainapp.class.getResource("views/Copy.fxml"));
@@ -123,7 +124,7 @@ public class Mainapp extends Application {
         }
     }
     
-    private void showViewLoans(){
+    public void showViewLoans(){
         try{
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Mainapp.class.getResource("views/Loan.fxml"));
@@ -138,7 +139,7 @@ public class Mainapp extends Application {
         }
     }
     
-    private void showViewUsers(){
+    public void showViewUsers(){
         try{
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Mainapp.class.getResource("views/User.fxml"));
@@ -146,6 +147,21 @@ public class Mainapp extends Application {
             UserController controller = loader.getController();
             controller.setMainApp(this);
             Layout.setCenter(UsersPane);
+        }catch(Exception e){
+           Alert error = Dialogs.getErrorDialog(Alert.AlertType.ERROR, "BibliotecaFx", null, "Error loading the FXML file", e);
+          error.showAndWait();
+          e.printStackTrace();
+        }
+    }
+    
+    public void showViewMenu(){
+        try{
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Mainapp.class.getResource("views/Menu.fxml"));
+            AnchorPane MenuPane = (AnchorPane) loader.load();
+            MenuController controller = loader.getController();
+            controller.setMainApp(this);
+            Layout.setCenter(MenuPane);
         }catch(Exception e){
            Alert error = Dialogs.getErrorDialog(Alert.AlertType.ERROR, "BibliotecaFx", null, "Error loading the FXML file", e);
           error.showAndWait();
