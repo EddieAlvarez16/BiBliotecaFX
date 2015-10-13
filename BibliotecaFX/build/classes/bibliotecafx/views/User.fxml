@@ -61,6 +61,10 @@
                         </Label>
                      </children>
                   </GridPane>
+                  <Button layoutX="17.0" layoutY="351.0" mnemonicParsing="false" onAction="#ClikedMain" text="Main Menu" />
+                  <Button layoutX="123.0" layoutY="351.0" mnemonicParsing="false" text="Add" />
+                  <Button layoutX="184.0" layoutY="351.0" mnemonicParsing="false" text="Modify" />
+                  <Button layoutX="262.0" layoutY="351.0" mnemonicParsing="false" text="Cancel" />
                </children>
             </AnchorPane>
         </items>

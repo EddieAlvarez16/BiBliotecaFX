@@ -75,4 +75,8 @@ public class UserController implements Initializable {
         }
     }
     
+    @FXML
+    private void ClikedMain(){
+        mainApp.showViewMenu();
+    }
 }

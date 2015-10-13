@@ -81,4 +81,9 @@ public class LoanController implements Initializable {
             }
         }
     }
+    
+    @FXML
+    private void ClikedMain(){
+        mainApp.showViewMenu();
+    }
 }
