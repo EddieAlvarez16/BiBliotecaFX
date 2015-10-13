@@ -8,6 +8,7 @@ package bibliotecafx;
 import bibliotecafx.controllers.AutorController;
 import bibliotecafx.controllers.BookController;
 import bibliotecafx.controllers.CopyController;
+import bibliotecafx.controllers.DialogEditAuhtorController;
 import bibliotecafx.controllers.LayoutController;
 import bibliotecafx.controllers.LoanController;
 import bibliotecafx.controllers.MenuController;
@@ -33,6 +34,7 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -166,6 +168,36 @@ public class Mainapp extends Application {
            Alert error = Dialogs.getErrorDialog(Alert.AlertType.ERROR, "BibliotecaFx", null, "Error loading the FXML file", e);
           error.showAndWait();
           e.printStackTrace();
+        }
+    }
+    
+    public boolean ShowDialogEditAuthor(Author author, CrudOperation operation){
+        try{
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Mainapp.class.getResource("views/DialogEditAuhtor.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Edit Author");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene escena = new Scene(page);
+            dialogStage.setScene(escena);
+            dialogStage.setResizable(false);
+            DialogEditAuhtorController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setOperation(operation);
+            controller.setAuthor(author);
+            
+            dialogStage.showAndWait();
+            
+            return controller.ClikedOk();
+            
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            Alert error = Dialogs.getErrorDialog(Alert.AlertType.ERROR, "BibliotecaFX", null, "Error loading the FXML file", e);
+            error.showAndWait();
+            return false;
         }
     }
 

@@ -32,7 +32,7 @@ public class DBHelper {
         Class.forName(DRIVER);
         connection = DriverManager.getConnection("jdbc:sqlserver://" + DB_SERVER + ";instanceName=" + DB_INSTANCE +";"
                 + "databaseName=" + DB_NAME +";user=sa" + ";"
-            + "password= 123");
+            + "password= sa");
     }
     public static Connection getConnection() throws ClassNotFoundException, SQLException{
         if(instance == null){

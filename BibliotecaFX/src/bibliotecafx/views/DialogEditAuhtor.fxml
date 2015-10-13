@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="254.0" prefWidth="553.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="bibliotecafx.controllers.DialogEditAuhtorController">
+   <children>
+      <Label layoutX="51.0" layoutY="116.0" text="Name">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtName" layoutX="144.0" layoutY="116.0" prefHeight="32.0" prefWidth="356.0" />
+      <Button layoutX="353.0" layoutY="191.0" mnemonicParsing="false" onAction="#addAccept" text="Accept">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <Button layoutX="466.0" layoutY="191.0" mnemonicParsing="false" onAction="#addCancel" text="Cancel">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
