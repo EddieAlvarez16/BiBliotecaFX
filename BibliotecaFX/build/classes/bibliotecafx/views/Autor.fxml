@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bibliotecafx.controllers.AutorController">
+   <children>
+      <TableView fx:id="tbvAuthors" layoutY="-3.0" prefHeight="400.0" prefWidth="600.0">
+        <columns>
+          <TableColumn fx:id="tbcId" prefWidth="75.0" text="ID" />
+            <TableColumn fx:id="tbcName" prefWidth="75.0" text="Name" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
