@@ -6,13 +6,18 @@
 package bibliotecafx.controllers;
 
 import bibliotecafx.Mainapp;
+import bibliotecafx.helpers.Dialogs;
 import bibliotecafx.models.Copy;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -57,6 +62,61 @@ public class CopyController implements Initializable {
                 Copy oldValue, Copy newValue) {
             }
         });
-    }    
+    } 
     
+    @FXML
+    private void ClikedMain(){
+        mainApp.showViewMenu();
+    }
+    
+    @FXML
+    private void addCopy(){
+        Copy copyTemp = new Copy();
+        boolean pressAdd = mainApp.ShowDialogEditCopy(copyTemp, Mainapp.CrudOperation.Create);
+        if(pressAdd){
+            mainApp.getCopiesList().add(copyTemp);
+        }
+    }
+    
+    @FXML
+    private void editCopy() {
+        Copy selectCopy = tbvCopy.getSelectionModel().getSelectedItem();
+        if (selectCopy != null) {
+            boolean okClicked = mainApp.ShowDialogEditCopy(selectCopy, Mainapp.CrudOperation.Update);
+            if (okClicked) {
+                Refresh();
+            }
+
+        } else {
+            Alert error = Dialogs.getDialog(AlertType.ERROR, "BibliotecaFX", null, "You did not select any field");
+            error.showAndWait();
+        }
+    }
+    
+    @FXML
+    private void deleteCopy() {
+        int selectedIndex = tbvCopy.getSelectionModel().getSelectedIndex();
+        if (selectedIndex >= 0) {
+            Copy deleteAuthor = tbvCopy.getSelectionModel().getSelectedItem();
+            Alert pregunta = Dialogs.getDialog(AlertType.CONFIRMATION, "BibliotecaFX", null, "You want to delete this Copy");
+            Optional<ButtonType> result = pregunta.showAndWait();
+            if (result.get() == ButtonType.OK){
+                if(Copy.deleteCopy(deleteAuthor)){
+                    tbvCopy.getItems().remove(selectedIndex);
+                }
+            }
+        } else {
+            Alert error = Dialogs.getDialog(AlertType.ERROR, "BibliotecaFX", null, "You did not select any field");
+            error.showAndWait();
+        }
+    }
+    
+   
+    private void Refresh(){
+        int selectedIndex = tbvCopy.getSelectionModel().getSelectedIndex();
+        tbvCopy.setItems(null);
+        tbvCopy.layout();
+        tbvCopy.setItems(mainApp.getCopiesList());
+        tbvCopy.getSelectionModel().select(selectedIndex);
+    }
 }

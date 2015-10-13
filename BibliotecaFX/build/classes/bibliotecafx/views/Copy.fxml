@@ -8,12 +8,16 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bibliotecafx.controllers.CopyController">
    <children>
-      <TableView fx:id="tbvCopy" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <TableView fx:id="tbvCopy" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columns>
           <TableColumn fx:id="tbcId" prefWidth="75.0" text="ID" />
           <TableColumn fx:id="tbcLocation" prefWidth="75.0" text="Location" />
             <TableColumn fx:id="tbcidBook" prefWidth="75.0" text="IDBook" />
         </columns>
       </TableView>
+      <Button layoutX="42.0" layoutY="370.0" mnemonicParsing="false" onAction="#ClikedMain" text="Main Menu" />
+      <Button layoutX="300.0" layoutY="370.0" mnemonicParsing="false" onAction="#addCopy" text="Add" />
+      <Button layoutX="381.0" layoutY="370.0" mnemonicParsing="false" onAction="#editCopy" text="Modify" />
+      <Button layoutX="471.0" layoutY="370.0" mnemonicParsing="false" onAction="#deleteCopy" text="Delete" />
    </children>
 </AnchorPane>

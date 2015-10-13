@@ -10,6 +10,7 @@ import bibliotecafx.controllers.BookController;
 import bibliotecafx.controllers.CopyController;
 import bibliotecafx.controllers.DialogEditAuhtorController;
 import bibliotecafx.controllers.DialogEditBookController;
+import bibliotecafx.controllers.DialogEditCopyController;
 import bibliotecafx.controllers.LayoutController;
 import bibliotecafx.controllers.LoanController;
 import bibliotecafx.controllers.MenuController;
@@ -218,6 +219,36 @@ public class Mainapp extends Application {
             controller.setDialogStage(dialogStage);
             controller.setOperation(operation);
             controller.setBook(book);
+            
+            dialogStage.showAndWait();
+            
+            return controller.ClikedOk();
+            
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            Alert error = Dialogs.getErrorDialog(Alert.AlertType.ERROR, "BibliotecaFX", null, "Error loading the FXML file", e);
+            error.showAndWait();
+            return false;
+        }
+    }
+    
+    public boolean ShowDialogEditCopy(Copy copy, CrudOperation operation){
+        try{
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Mainapp.class.getResource("views/DialogEditCopy.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Edit Copy");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene escena = new Scene(page);
+            dialogStage.setScene(escena);
+            dialogStage.setResizable(false);
+            DialogEditCopyController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setOperation(operation);
+            controller.setCopy(copy);
             
             dialogStage.showAndWait();
             

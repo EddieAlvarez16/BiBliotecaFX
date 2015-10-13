@@ -8,7 +8,9 @@ package bibliotecafx.models;
 import bibliotecafx.helpers.DBHelper;
 import bibliotecafx.helpers.Dialogs;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
@@ -75,5 +77,66 @@ public class Copy {
             error.showAndWait();
         }
         return Copies;
+    }
+     
+     public static boolean insertCopy(Copy newCopy){
+        
+        String insertSQL =  "INSERT INTO Copy (location, idBook) "
+                + "VALUES (?,?)";
+        try{
+            PreparedStatement insertStatement = DBHelper.getConnection().prepareStatement(insertSQL);
+            
+            insertStatement.setString(1, newCopy.getLocation());
+            insertStatement.setInt(2, newCopy.getIdBook());
+           
+            
+            insertStatement.executeUpdate();
+            
+        }catch( SQLException | ClassNotFoundException ex){
+            Alert error = Dialogs.getErrorDialog(Alert.AlertType.ERROR, "BibliotecaFX", null, "Error inserted Copy", ex);
+            error.showAndWait();
+            return false;
+        }
+        return true;
+    }
+     
+    public static boolean editCopy(Copy newCopy){
+        String updateSQL = "UPDATE Copy"
+                + " SET location = ?, idBook = ?"
+                + " WHERE id = ?";
+        
+        try{
+            PreparedStatement updateStatement = DBHelper.getConnection().prepareStatement(updateSQL);
+            
+            updateStatement.setString(1, newCopy.getLocation());
+            updateStatement.setInt(2, newCopy.getIdBook());
+            
+            
+            updateStatement.executeUpdate();
+            
+        }catch( SQLException | ClassNotFoundException ex){
+            Alert error = Dialogs.getErrorDialog(Alert.AlertType.ERROR, "BibliotecaFX", null, "Error update Copy", ex);
+            error.showAndWait();
+            return false;
+        }
+        
+        return true;
+    }
+    
+    public static boolean deleteCopy(Copy copy){
+        String deleteSQL = "DELETE FROM Copy "
+                + "WHERE id = ?";
+        try{
+            PreparedStatement deleteStatement = DBHelper.getConnection().prepareStatement(deleteSQL);
+            deleteStatement.setInt(1, copy.getId());
+            
+            deleteStatement.executeUpdate();
+            
+        }catch( SQLException | ClassNotFoundException ex){
+            Alert error = Dialogs.getErrorDialog(Alert.AlertType.ERROR, "BibliotecaFX", null, "Error delte Copy", ex);
+            error.showAndWait();
+            return false;
+        }
+        return true;
     }
 }
