@@ -7,10 +7,12 @@ package bibliotecafx;
 
 import bibliotecafx.controllers.AutorController;
 import bibliotecafx.controllers.BookController;
+import bibliotecafx.controllers.CopyController;
 import bibliotecafx.controllers.LayoutController;
 import bibliotecafx.helpers.Dialogs;
 import bibliotecafx.models.Author;
 import bibliotecafx.models.Book;
+import bibliotecafx.models.Copy;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -36,6 +38,7 @@ public class Mainapp extends Application {
     private BorderPane Layout;
     private ObservableList<Author> autorList = FXCollections.observableArrayList();
     private ObservableList<Book> booksList = FXCollections.observableArrayList();
+    private ObservableList<Copy> copiesList = FXCollections.observableArrayList();
     public enum CrudOperation{None, Create, Read, Update, Delete}
     
     public Mainapp(){
@@ -61,6 +64,7 @@ public class Mainapp extends Application {
       }
       this.autorList = Author.getAuthorList();
       this.booksList = Book.getBookList();
+      this.copiesList = Copy.getCopiesList();
     }
     
     private void showViewAuthors(){
@@ -92,6 +96,21 @@ public class Mainapp extends Application {
           e.printStackTrace();
         }
     }
+    
+    private void showViewCopies(){
+        try{
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Mainapp.class.getResource("views/Copy.fxml"));
+            AnchorPane CopiesPane = (AnchorPane) loader.load();
+            CopyController controller = loader.getController();
+            controller.setMainApp(this);
+            Layout.setCenter(CopiesPane);
+        }catch(Exception e){
+           Alert error = Dialogs.getErrorDialog(Alert.AlertType.ERROR, "BibliotecaFx", null, "Error loading the FXML file", e);
+          error.showAndWait();
+          e.printStackTrace();
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -106,6 +125,10 @@ public class Mainapp extends Application {
 
     public ObservableList<Book> getBooksList() {
         return booksList;
+    }
+
+    public ObservableList<Copy> getCopiesList() {
+        return copiesList;
     }
     
     
