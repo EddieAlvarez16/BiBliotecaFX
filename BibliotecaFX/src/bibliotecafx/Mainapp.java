@@ -6,9 +6,11 @@
 package bibliotecafx;
 
 import bibliotecafx.controllers.AutorController;
+import bibliotecafx.controllers.BookController;
 import bibliotecafx.controllers.LayoutController;
 import bibliotecafx.helpers.Dialogs;
 import bibliotecafx.models.Author;
+import bibliotecafx.models.Book;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -33,6 +35,7 @@ public class Mainapp extends Application {
     private Stage primaryStage;
     private BorderPane Layout;
     private ObservableList<Author> autorList = FXCollections.observableArrayList();
+    private ObservableList<Book> booksList = FXCollections.observableArrayList();
     public enum CrudOperation{None, Create, Read, Update, Delete}
     
     public Mainapp(){
@@ -57,6 +60,7 @@ public class Mainapp extends Application {
           e.printStackTrace();
       }
       this.autorList = Author.getAuthorList();
+      this.booksList = Book.getBookList();
     }
     
     private void showViewAuthors(){
@@ -67,6 +71,21 @@ public class Mainapp extends Application {
             AutorController controller = loader.getController();
             controller.setMainApp(this);
             Layout.setCenter(authorsPane);
+        }catch(Exception e){
+           Alert error = Dialogs.getErrorDialog(Alert.AlertType.ERROR, "BibliotecaFx", null, "Error loading the FXML file", e);
+          error.showAndWait();
+          e.printStackTrace();
+        }
+    }
+    
+    private void showViewBooks(){
+        try{
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Mainapp.class.getResource("views/Book.fxml"));
+            AnchorPane booksPane = (AnchorPane) loader.load();
+            BookController controller = loader.getController();
+            controller.setMainApp(this);
+            Layout.setCenter(booksPane);
         }catch(Exception e){
            Alert error = Dialogs.getErrorDialog(Alert.AlertType.ERROR, "BibliotecaFx", null, "Error loading the FXML file", e);
           error.showAndWait();
@@ -84,5 +103,10 @@ public class Mainapp extends Application {
     public ObservableList<Author> getAuthorsList() {
         return autorList;
     }
+
+    public ObservableList<Book> getBooksList() {
+        return booksList;
+    }
+    
     
 }

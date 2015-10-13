@@ -54,7 +54,7 @@ public class Author {
             ResultSet rs = con.createStatement().executeQuery(sql);
             while(rs.next()){
                 Author author = new Author();
-                author.setId(rs.getInt("int"));
+                author.setId(rs.getInt("id"));
                 author.setName(rs.getString("name"));
                 
                 authors.add(author);
