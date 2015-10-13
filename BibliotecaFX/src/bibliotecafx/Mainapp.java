@@ -9,20 +9,25 @@ import bibliotecafx.controllers.AutorController;
 import bibliotecafx.controllers.BookController;
 import bibliotecafx.controllers.CopyController;
 import bibliotecafx.controllers.LayoutController;
+import bibliotecafx.controllers.LoanController;
 import bibliotecafx.helpers.Dialogs;
 import bibliotecafx.models.Author;
 import bibliotecafx.models.Book;
 import bibliotecafx.models.Copy;
+import bibliotecafx.models.Loan;
+import bibliotecafx.models.User;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import java.util.Date;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
@@ -39,6 +44,8 @@ public class Mainapp extends Application {
     private ObservableList<Author> autorList = FXCollections.observableArrayList();
     private ObservableList<Book> booksList = FXCollections.observableArrayList();
     private ObservableList<Copy> copiesList = FXCollections.observableArrayList();
+    private ObservableList<Loan> LoansList = FXCollections.observableArrayList();
+    private ObservableList<User> usersList = FXCollections.observableArrayList();
     public enum CrudOperation{None, Create, Read, Update, Delete}
     
     public Mainapp(){
@@ -65,6 +72,8 @@ public class Mainapp extends Application {
       this.autorList = Author.getAuthorList();
       this.booksList = Book.getBookList();
       this.copiesList = Copy.getCopiesList();
+      this.LoansList = Loan.getLoansList();
+      showViewLoans();
     }
     
     private void showViewAuthors(){
@@ -111,6 +120,21 @@ public class Mainapp extends Application {
           e.printStackTrace();
         }
     }
+    
+    private void showViewLoans(){
+        try{
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Mainapp.class.getResource("views/Loan.fxml"));
+            SplitPane LoansPane = (SplitPane) loader.load();
+            LoanController controller = loader.getController();
+            controller.setMainApp(this);
+            Layout.setCenter(LoansPane);
+        }catch(Exception e){
+           Alert error = Dialogs.getErrorDialog(Alert.AlertType.ERROR, "BibliotecaFx", null, "Error loading the FXML file", e);
+          error.showAndWait();
+          e.printStackTrace();
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -129,6 +153,14 @@ public class Mainapp extends Application {
 
     public ObservableList<Copy> getCopiesList() {
         return copiesList;
+    }
+
+    public ObservableList<Loan> getLoansList() {
+        return LoansList;
+    }
+
+    public ObservableList<User> getUsersList() {
+        return usersList;
     }
     
     

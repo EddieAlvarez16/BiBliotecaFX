@@ -40,6 +40,7 @@ idBook INT FOREIGN KEY REFERENCES Book(id) NOT NULL
 GO
 CREATE TABLE Loan
 (
+id INT IDENTITY(1,1) PRIMARY KEY,
 idUser INT FOREIGN KEY REFERENCES Users(id) NOT NULL,
 idCopy INT FOREIGN KEY REFERENCES Copy(id) NOT NULL,
 fechaPrestamo DATE NOT NULL,
@@ -152,23 +153,23 @@ INSERT INTO Write(idAuthor,idBook )
 VALUES(10,10)
 GO
 INSERT INTO Loan(idUser, idCopy, fechaPrestamo, fechaDevolucion)
-VALUES(1, 1, 2005-09-01, 2005-09-10)
+VALUES(1, 1, '2005-09-01', '2005-09-10')
 INSERT INTO Loan(idUser, idCopy, fechaPrestamo, fechaDevolucion)
-VALUES(2, 2, 2005-09-03, 2005-09-20)
+VALUES(2, 2, '2005-09-03', '2005-09-20')
 INSERT INTO Loan(idUser, idCopy, fechaPrestamo, fechaDevolucion)
-VALUES(3, 3, 2006-12-05, NULL)
+VALUES(3, 3, '2006-12-05', NULL)
 INSERT INTO Loan(idUser, idCopy, fechaPrestamo, fechaDevolucion)
-VALUES(4, 4, 2006-07-11, 2006-07-22)
+VALUES(4, 4, '2006-07-11', '2006-07-22')
 INSERT INTO Loan(idUser, idCopy, fechaPrestamo, fechaDevolucion)
-VALUES(5, 5, 2009-10-01, 2009-10-10)
+VALUES(5, 5, '2009-10-01', '2009-10-10')
 INSERT INTO Loan(idUser, idCopy, fechaPrestamo, fechaDevolucion)
-VALUES(6, 6, 2009-11-10, 2009-12-12)
+VALUES(6, 6, '2009-11-10', '2009-12-12')
 INSERT INTO Loan(idUser, idCopy, fechaPrestamo, fechaDevolucion)
-VALUES(7, 7, 2010-01-11, NULL)
+VALUES(7, 7, '2010-01-11', NULL)
 INSERT INTO Loan(idUser, idCopy, fechaPrestamo, fechaDevolucion)
-VALUES(8, 8, 2010-02-20, NULL)
+VALUES(8, 8, '2010-02-20', NULL)
 INSERT INTO Loan(idUser, idCopy, fechaPrestamo, fechaDevolucion)
-VALUES(9, 9, 2010-05-12, 2010-05-22)
+VALUES(9, 9, '2010-05-12', '2010-05-22')
 INSERT INTO Loan(idUser, idCopy, fechaPrestamo, fechaDevolucion)
-VALUES(10, 10, 2011-10-02, 2011-10-10)
+VALUES(10, 10, '2011-10-02', '2011-10-10')
 GO
