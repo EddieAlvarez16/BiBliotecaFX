@@ -26,5 +26,11 @@
             <Font size="16.0" />
          </font>
       </Button>
+      <Label layoutX="51.0" layoutY="57.0" text="ID">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtId" layoutX="134.0" layoutY="66.0" prefHeight="32.0" prefWidth="363.0" />
    </children>
 </AnchorPane>

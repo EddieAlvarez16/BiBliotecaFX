@@ -6,13 +6,19 @@
 package bibliotecafx.controllers;
 
 import bibliotecafx.Mainapp;
+import bibliotecafx.Mainapp.CrudOperation;
+import bibliotecafx.helpers.Dialogs;
 import bibliotecafx.models.Book;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -76,5 +82,66 @@ public class BookController implements Initializable {
             lblEditorial.setText(book.getEditorial());
             lblPages.setText(String.valueOf(book.getPages()));
         }
+    }
+    
+    @FXML
+    private void ClikedMain(){
+        mainApp.showViewMenu();
+    }
+    
+    @FXML
+    private void addBook(){
+        Book bookTemp = new Book();
+        boolean pressAdd = mainApp.ShowDialogEditBook(bookTemp, CrudOperation.Create);
+        if (pressAdd){
+            mainApp.getBooksList().add(bookTemp);
+        }
+    }
+    
+    @FXML
+    private void editBook() {
+        Book selectBook = tbvBooks.getSelectionModel().getSelectedItem();
+        if (selectBook != null) {
+            boolean okClicked = mainApp.ShowDialogEditBook(selectBook, Mainapp.CrudOperation.Update);
+            if (okClicked) {
+                Refresh();
+            }
+
+        } else {
+            Alert error = Dialogs.getDialog(AlertType.ERROR, "BibliotecaFX", null, "You did not select any field");
+            error.showAndWait();
+        }
+    }
+    
+    
+    @FXML
+    private void deleteBook() {
+        int selectedIndex = tbvBooks.getSelectionModel().getSelectedIndex();
+        if (selectedIndex >= 0) {
+            Book deleteBook = tbvBooks.getSelectionModel().getSelectedItem();
+            Alert pregunta = Dialogs.getDialog(AlertType.CONFIRMATION, "BibliotecaFX", null, "You want to delete this author");
+            Optional<ButtonType> result = pregunta.showAndWait();
+            if (result.get() == ButtonType.OK){
+                if(Book.deleteBook(deleteBook)){
+                    tbvBooks.getItems().remove(selectedIndex);
+                }
+            }
+        } else {
+            Alert error = Dialogs.getDialog(AlertType.ERROR, "BibliotecaFX", null, "You did not select any field");
+            error.showAndWait();
+        }
+    }
+    
+    
+    
+    
+    
+    
+    private void Refresh(){
+        int selectedIndex = tbvBooks.getSelectionModel().getSelectedIndex();
+        tbvBooks.setItems(null);
+        tbvBooks.layout();
+        tbvBooks.setItems(mainApp.getBooksList());
+        tbvBooks.getSelectionModel().select(selectedIndex);
     }
 }

@@ -9,6 +9,7 @@ import bibliotecafx.controllers.AutorController;
 import bibliotecafx.controllers.BookController;
 import bibliotecafx.controllers.CopyController;
 import bibliotecafx.controllers.DialogEditAuhtorController;
+import bibliotecafx.controllers.DialogEditBookController;
 import bibliotecafx.controllers.LayoutController;
 import bibliotecafx.controllers.LoanController;
 import bibliotecafx.controllers.MenuController;
@@ -45,7 +46,7 @@ public class Mainapp extends Application {
     
     private Stage primaryStage;
     private BorderPane Layout;
-    private ObservableList<Author> autorList = FXCollections.observableArrayList();
+    public ObservableList<Author> autorList = FXCollections.observableArrayList();
     private ObservableList<Book> booksList = FXCollections.observableArrayList();
     private ObservableList<Copy> copiesList = FXCollections.observableArrayList();
     private ObservableList<Loan> LoansList = FXCollections.observableArrayList();
@@ -187,6 +188,36 @@ public class Mainapp extends Application {
             controller.setDialogStage(dialogStage);
             controller.setOperation(operation);
             controller.setAuthor(author);
+            
+            dialogStage.showAndWait();
+            
+            return controller.ClikedOk();
+            
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            Alert error = Dialogs.getErrorDialog(Alert.AlertType.ERROR, "BibliotecaFX", null, "Error loading the FXML file", e);
+            error.showAndWait();
+            return false;
+        }
+    }
+    
+    public boolean ShowDialogEditBook(Book book, CrudOperation operation){
+        try{
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Mainapp.class.getResource("views/DialogEditBook.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Edit Book");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene escena = new Scene(page);
+            dialogStage.setScene(escena);
+            dialogStage.setResizable(false);
+            DialogEditBookController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setOperation(operation);
+            controller.setBook(book);
             
             dialogStage.showAndWait();
             

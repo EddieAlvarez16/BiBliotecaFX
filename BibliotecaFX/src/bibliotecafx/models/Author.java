@@ -78,6 +78,7 @@ public class Author {
             insertStatement.setString(1, newAuthor.getName());
             
             insertStatement.executeUpdate();
+            getAuthorList();
             
         }catch( SQLException | ClassNotFoundException ex){
             Alert error = Dialogs.getErrorDialog(Alert.AlertType.ERROR, "BibliotecaFX", null, "Error inserted author", ex);
@@ -90,7 +91,7 @@ public class Author {
     public static boolean editAuhor(Author newAuthor){
         String updateSQL = "UPDATE Author"
                 + " SET name = ?"
-                + " WHERE id ";
+                + " WHERE id = ? ";
         
         try{
             PreparedStatement updateStatement = DBHelper.getConnection().prepareStatement(updateSQL);

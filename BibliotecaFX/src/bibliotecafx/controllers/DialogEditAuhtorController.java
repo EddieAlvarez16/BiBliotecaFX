@@ -25,6 +25,8 @@ import javafx.stage.Stage;
 public class DialogEditAuhtorController implements Initializable {
     
     @FXML
+    private TextField txtId;
+    @FXML
     private TextField txtName;
     
     private Stage dialogStage;
@@ -42,7 +44,7 @@ public class DialogEditAuhtorController implements Initializable {
     
     public void setAuthor(Author author) {
         this.author = author;
-        
+      
         txtName.setText(author.getName());
     }
     

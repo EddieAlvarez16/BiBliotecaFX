@@ -9,7 +9,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bibliotecafx.controllers.BookController">
    <children>
-      <SplitPane dividerPositions="0.35451505016722407" layoutX="40.0" layoutY="40.0" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.43645484949832775" layoutX="40.0" layoutY="40.0" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
@@ -71,6 +71,10 @@
                         </Label>
                      </children>
                   </GridPane>
+                  <Button layoutX="14.0" layoutY="359.0" mnemonicParsing="false" onAction="#ClikedMain" text="Main Menu" />
+                  <Button layoutX="137.0" layoutY="359.0" mnemonicParsing="false" onAction="#addBook" text="Add" />
+                  <Button layoutX="194.0" layoutY="359.0" mnemonicParsing="false" onAction="#editBook" text="Modify" />
+                  <Button layoutX="259.0" layoutY="359.0" mnemonicParsing="false" onAction="#deleteBook" text="Delete" />
                </children>
             </AnchorPane>
         </items>

@@ -8,7 +8,9 @@ package bibliotecafx.models;
 import bibliotecafx.helpers.DBHelper;
 import bibliotecafx.helpers.Dialogs;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
@@ -97,5 +99,70 @@ public class Book {
             error.showAndWait();
         }
         return books;
+    }
+    
+    public static boolean insertBook(Book newBook){
+        
+        String insertSQL =  "INSERT INTO Book (title, isbn, editorial, pages) "
+                + "VALUES (?,?,?,?)";
+        try{
+            PreparedStatement insertStatement = DBHelper.getConnection().prepareStatement(insertSQL);
+            
+            insertStatement.setString(1, newBook.getTitle());
+            insertStatement.setString(2, newBook.getIsbn());
+            insertStatement.setString(3, newBook.getEditorial());
+            insertStatement.setInt(4, newBook.getPages());
+            
+            insertStatement.executeUpdate();
+            
+        }catch( SQLException | ClassNotFoundException ex){
+            Alert error = Dialogs.getErrorDialog(Alert.AlertType.ERROR, "BibliotecaFX", null, "Error inserted Book", ex);
+            error.showAndWait();
+            return false;
+        }
+        return true;
+    }
+    
+    public static boolean editBook(Book newBook){
+        String updateSQL = "UPDATE Book"
+                + " SET title = ?, isbn = ?, editorial = ?, pages = ?"
+                + " WHERE id = ?";
+        
+        try{
+            PreparedStatement updateStatement = DBHelper.getConnection().prepareStatement(updateSQL);
+            
+            updateStatement.setString(1, newBook.getTitle());
+            updateStatement.setString(2, newBook.getIsbn());
+            updateStatement.setString(3, newBook.getEditorial());
+            updateStatement.setInt(4, newBook.getPages());
+            updateStatement.setInt(5, newBook.getId());
+            
+            
+            updateStatement.executeUpdate();
+            
+        }catch( SQLException | ClassNotFoundException ex){
+            Alert error = Dialogs.getErrorDialog(Alert.AlertType.ERROR, "BibliotecaFX", null, "Error update Book", ex);
+            error.showAndWait();
+            return false;
+        }
+        
+        return true;
+    }
+    
+    public static boolean deleteBook(Book book){
+        String deleteSQL = "DELETE FROM Book "
+                + "WHERE id = ?";
+        try{
+            PreparedStatement deleteStatement = DBHelper.getConnection().prepareStatement(deleteSQL);
+            deleteStatement.setInt(1, book.getId());
+            
+            deleteStatement.executeUpdate();
+            
+        }catch( SQLException | ClassNotFoundException ex){
+            Alert error = Dialogs.getErrorDialog(Alert.AlertType.ERROR, "BibliotecaFX", null, "Error delte Book", ex);
+            error.showAndWait();
+            return false;
+        }
+        return true;
     }
 }

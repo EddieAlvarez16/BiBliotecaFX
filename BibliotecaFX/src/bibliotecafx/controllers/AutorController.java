@@ -74,8 +74,9 @@ public class AutorController implements Initializable {
         boolean pressAdd = mainApp.ShowDialogEditAuthor(authorTemp, Mainapp.CrudOperation.Create);
         if(pressAdd){
             mainApp.getAuthorsList().add(authorTemp);
-            Refresh();
+            
         }
+        Charge();
     }
     
     @FXML
@@ -117,5 +118,8 @@ public class AutorController implements Initializable {
         tbvAuthors.layout();
         tbvAuthors.setItems(mainApp.getAuthorsList());
         tbvAuthors.getSelectionModel().select(selectedIndex);
+    }
+    private void Charge(){
+        Author.getAuthorList();
     }
 }
